@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Weight Loss Enrollment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #1a202c;
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 4px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #f7fafc;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #edf2f7;
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .alert-success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+
+        .alert-error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+        }
+
+        .alert-info {
+            background: #bee3f8;
+            color: #2c5282;
+            border: 1px solid #90cdf4;
+        }
+
+        .result-box {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 24px;
+            display: none;
+        }
+
+        .result-box h3 {
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .enrollment-id {
+            background: white;
+            border: 2px dashed #667eea;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #667eea;
+            word-break: break-all;
+            margin: 12px 0;
+        }
+
+        .copy-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .copy-button:hover {
+            background: #5568d3;
+        }
+
+        .next-steps {
+            background: #fef5e7;
+            border-left: 4px solid #f39c12;
+            padding: 16px;
+            margin-top: 16px;
+            border-radius: 4px;
+        }
+
+        .next-steps h4 {
+            color: #d68910;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .next-steps ol {
+            margin-left: 20px;
+            color: #7d6608;
+            font-size: 13px;
+        }
+
+        .next-steps li {
+            margin-bottom: 4px;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 24px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+
+        .backend-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            margin-top: 16px;
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-online {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status-online .status-dot {
+            background: #48bb78;
+        }
+
+        .status-offline {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .status-offline .status-dot {
+            background: #f56565;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Create Weight Loss Enrollment</h1>
+            <p>Enroll a patient in the weight loss program</p>
+        </div>
+
+        <div id="backendStatus" class="backend-status">
+            <div class="status-dot"></div>
+            <span>Checking backend connection...</span>
+        </div>
+
+        <div id="alert" class="alert"></div>
+
+        <form id="enrollmentForm">
+            <div class="form-group">
+                <label for="apiUrl">Backend API URL</label>
+                <input 
+                    type="text" 
+                    id="apiUrl" 
+                    value="http://localhost:8000" 
+                    required
+                >
+                <div class="input-hint">Default: http://localhost:8000</div>
+            </div>
+
+            <div class="form-group">
+                <label for="patientId">Patient ID *</label>
+                <input 
+                    type="text" 
+                    id="patientId" 
+                    placeholder="e.g., a1b2c3d4-e5f6-7890-abcd-ef1234567890" 
+                    required
+                >
+                <div class="input-hint">UUID of the patient from your database</div>
+            </div>
+
+            <div class="form-group">
+                <label for="doctorId">Doctor/Care Provider ID *</label>
+                <input 
+                    type="text" 
+                    id="doctorId" 
+                    placeholder="e.g., doctor-uuid-here" 
+                    required
+                >
+                <div class="input-hint">UUID of the enrolling doctor</div>
+            </div>
+
+            <div class="form-group">
+                <label for="programGoals">Program Goals</label>
+                <textarea 
+                    id="programGoals" 
+                    placeholder="e.g., Lose 10kg in 3 months through healthy diet and exercise"
+                >Lose weight and improve overall health through balanced diet and regular exercise</textarea>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label for="targetWeight">Target Weight (kg) *</label>
+                    <input 
+                        type="number" 
+                        id="targetWeight" 
+                        step="0.1" 
+                        placeholder="70.0" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="targetBmi">Target BMI</label>
+                    <input 
+                        type="number" 
+                        id="targetBmi" 
+                        step="0.1" 
+                        placeholder="24.0"
+                    >
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn-secondary" onclick="resetForm()">Reset</button>
+                <button type="submit" class="btn-primary" id="submitBtn">
+                    Create Enrollment
+                </button>
+            </div>
+        </form>
+
+        <div id="resultBox" class="result-box">
+            <h3>✅ Enrollment Created Successfully!</h3>
+            <p style="color: #718096; font-size: 14px; margin-bottom: 8px;">Copy this enrollment ID:</p>
+            <div class="enrollment-id" id="enrollmentId"></div>
+            <button class="copy-button" onclick="copyEnrollmentId()">📋 Copy to Clipboard</button>
+            
+            <div class="next-steps">
+                <h4>📝 Next Steps:</h4>
+                <ol>
+                    <li>Copy the enrollment ID above</li>
+                    <li>Open <code>.env.local</code> in wtl-main project</li>
+                    <li>Add: <code>VITE_ENROLLMENT_ID=&lt;paste-id-here&gt;</code></li>
+                    <li>Restart dev server: <code>npm run dev</code></li>
+                    <li>Open the dashboard in your browser</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let enrollmentIdValue = '';
+
+        // Check backend status on load
+        window.addEventListener('DOMContentLoaded', checkBackendStatus);
+
+        async function checkBackendStatus() {
+            const apiUrl = document.getElementById('apiUrl').value;
+            const statusDiv = document.getElementById('backendStatus');
+            
+            try {
+                // Try to reach the docs endpoint which always exists
+                const response = await fetch(`${apiUrl}/docs`, { 
+                    method: 'GET',
+                    signal: AbortSignal.timeout(5000)
+                });
+                
+                if (response.ok) {
+                    statusDiv.className = 'backend-status status-online';
+                    statusDiv.innerHTML = `
+                        <div class="status-dot"></div>
+                        <span>✓ Backend is online and healthy</span>
+                    `;
+                } else {
+                    throw new Error('Backend not responding');
+                }
+            } catch (error) {
+                statusDiv.className = 'backend-status status-offline';
+                statusDiv.innerHTML = `
+                    <div class="status-dot"></div>
+                    <span>✗ Cannot connect to backend - Make sure aihealth-server is running on port 8000</span>
+                `;
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('enrollmentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const alertDiv = document.getElementById('alert');
+            const resultBox = document.getElementById('resultBox');
+            
+            // Get form values
+            const apiUrl = document.getElementById('apiUrl').value.trim();
+            const patientId = document.getElementById('patientId').value.trim();
+            const doctorId = document.getElementById('doctorId').value.trim();
+            const programGoals = document.getElementById('programGoals').value.trim();
+            const targetWeight = parseFloat(document.getElementById('targetWeight').value);
+            const targetBmi = document.getElementById('targetBmi').value 
+                ? parseFloat(document.getElementById('targetBmi').value) 
+                : null;
+            
+            // Validate
+            if (!patientId || !doctorId || !targetWeight) {
+                showAlert('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            // Show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span>Creating enrollment...';
+            resultBox.style.display = 'none';
+            alertDiv.style.display = 'none';
+            
+            try {
+                // Make API request
+                const response = await fetch(`${apiUrl}/weight-loss-agent/enroll`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        patient_id: patientId,
+                        enrolled_by_care_provider_id: doctorId,
+                        program_goals: programGoals || undefined,
+                        target_weight_kg: targetWeight,
+                        target_bmi: targetBmi || undefined,
+                    }),
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.status === 'success') {
+                    // Success!
+                    enrollmentIdValue = data.data.enrollment_id;
+                    document.getElementById('enrollmentId').textContent = enrollmentIdValue;
+                    resultBox.style.display = 'block';
+                    showAlert(data.message || 'Enrollment created successfully!', 'success');
+                    
+                    // Scroll to result
+                    resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else {
+                    // Error from backend
+                    throw new Error(data.message || 'Failed to create enrollment');
+                }
+            } catch (error) {
+                console.error('Enrollment error:', error);
+                showAlert(
+                    `Error: ${error.message || 'Failed to create enrollment. Make sure backend is running.'}`,
+                    'error'
+                );
+            } finally {
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Create Enrollment';
+            }
+        });
+
+        function showAlert(message, type) {
+            const alertDiv = document.getElementById('alert');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+            alertDiv.style.display = 'block';
+            
+            // Auto-hide success messages after 5 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    alertDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        function copyEnrollmentId() {
+            if (enrollmentIdValue) {
+                navigator.clipboard.writeText(enrollmentIdValue).then(() => {
+                    showAlert('Enrollment ID copied to clipboard!', 'success');
+                }).catch(err => {
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = enrollmentIdValue;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    showAlert('Enrollment ID copied to clipboard!', 'success');
+                });
+            }
+        }
+
+        function resetForm() {
+            if (confirm('Are you sure you want to reset the form?')) {
+                document.getElementById('enrollmentForm').reset();
+                document.getElementById('resultBox').style.display = 'none';
+                document.getElementById('alert').style.display = 'none';
+                enrollmentIdValue = '';
+            }
+        }
+
+        // Update backend status when API URL changes
+        document.getElementById('apiUrl').addEventListener('blur', checkBackendStatus);
+    </script>
+</body>
+</html>
+

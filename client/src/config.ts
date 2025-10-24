@@ -22,8 +22,8 @@ function getAPIBaseURL(): string {
   // return `${window.location.origin}/api`;
   
   // Option 2: Use a specific production URL (RECOMMENDED)
-  // Change this URL to your production backend URL
-  return 'https://your-backend-domain.com';
+  // Production backend URL
+  return 'https://api.aihealth.clinic';
   
   // Option 3: Use relative path (if backend is on same domain)
   // return '/api';

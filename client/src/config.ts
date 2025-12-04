@@ -11,16 +11,8 @@
  */
 function getAPIBaseURL(): string {
   // In production, use the production API URL
-  // Change this to your production backend URL when deploying
   if (import.meta.env.PROD) {
-    // Option 1: Same domain with /api prefix (if using reverse proxy)
-    // return '/api';
-    
-    // Option 2: Specific production API URL
-    // return 'https://api.yourdomain.com';
-    
-    // Option 3: Use current origin with port 8000
-    return `${window.location.protocol}//${window.location.hostname}:8000`;
+    return 'https://api.aihealth.clinic';
   }
   
   // In development, use localhost

@@ -4,17 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Upload, FileText, Download, Eye, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
-
-interface InBodyReport {
-  report_id: string;
-  report_date: string;
-  processed: boolean;
-  extraction_confidence?: number;
-  abnormal_indicators_count: number;
-  measurements_count: number;
-  ai_summary?: string;
-  original_filename?: string;
-}
+import type { InBodyReport } from '@/lib/api';
 
 interface InBodyReportsProps {
   reports: InBodyReport[];
@@ -63,9 +53,9 @@ export default function InBodyReports({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <Card 
-        className={`p-8 border-2 border-dashed transition-all ${
+        className={`p-4 sm:p-8 border-2 border-dashed transition-all ${
           dragActive ? 'border-primary bg-primary/5' : 
           isFirstReport ? 'border-chart-1 bg-chart-1/5 animate-pulse-slow' : 
           'border-border'
@@ -73,26 +63,26 @@ export default function InBodyReports({
         data-testid="card-upload-zone"
       >
         <div
-          className="flex flex-col items-center justify-center gap-4"
+          className="flex flex-col items-center justify-center gap-3 sm:gap-4"
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
           onDrop={handleDrop}
         >
-          <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10">
+          <div className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary/10">
             {isUploading ? (
-              <Loader2 className="w-8 h-8 text-primary animate-spin" />
+              <Loader2 className="w-6 h-6 sm:w-8 sm:h-8 text-primary animate-spin" />
             ) : (
-              <Upload className="w-8 h-8 text-primary" />
+              <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
             )}
           </div>
           <div className="text-center">
-            <h3 className="text-lg font-semibold text-foreground mb-1">
+            <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">
               {isUploading ? 'Uploading Report...' : 
                isFirstReport ? '📄 Upload Your First InBody Report' : 
                'Upload InBody Report'}
             </h3>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               {isFirstReport 
                 ? 'Start your health journey by uploading your InBody scan' 
                 : 'Drag and drop your InBody scan or click to browse'}
@@ -122,15 +112,15 @@ export default function InBodyReports({
       </Card>
 
       <div>
-        <h3 className="text-lg font-semibold text-foreground mb-4">Recent Reports</h3>
+        <h3 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">Recent Reports</h3>
         <div className="space-y-3">
           {reports.length === 0 ? (
-            <Card className="p-8">
+            <Card className="p-6 sm:p-8">
               <div className="flex flex-col items-center justify-center gap-3 text-center">
-                <FileText className="w-12 h-12 text-muted-foreground" />
+                <FileText className="w-10 h-10 sm:w-12 sm:h-12 text-muted-foreground" />
                 <div>
-                  <h4 className="font-medium text-foreground">No reports yet</h4>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <h4 className="font-medium text-foreground text-sm sm:text-base">No reports yet</h4>
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                     Upload your first InBody report to start tracking
                   </p>
                 </div>
@@ -138,25 +128,25 @@ export default function InBodyReports({
             </Card>
           ) : (
             reports.map((report) => (
-              <Card key={report.report_id} className="p-4 hover-elevate transition-all" data-testid={`card-report-${report.report_id}`}>
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 flex-shrink-0">
-                    <FileText className="w-6 h-6 text-primary" />
+              <Card key={report.report_id} className="p-3 sm:p-4 hover-elevate transition-all" data-testid={`card-report-${report.report_id}`}>
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary/10 flex-shrink-0">
+                    <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-2 mb-2">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-2 mb-2">
                       <div>
-                        <h4 className="font-semibold text-foreground" data-testid={`text-report-filename-${report.report_id}`}>
+                        <h4 className="font-semibold text-foreground text-sm sm:text-base truncate" data-testid={`text-report-filename-${report.report_id}`}>
                           {report.original_filename || 'InBody Report'}
                         </h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-xs sm:text-sm text-muted-foreground">
                           {format(new Date(report.report_date), 'MMM dd, yyyy')}
                         </p>
                       </div>
                       <Badge
                         variant={report.processed ? 'default' : 'secondary'}
                         data-testid={`badge-status-${report.report_id}`}
-                        className={!report.processed ? 'animate-pulse' : ''}
+                        className={`self-start text-xs ${!report.processed ? 'animate-pulse' : ''}`}
                       >
                         {report.processed ? (
                           <>
@@ -172,23 +162,23 @@ export default function InBodyReports({
                       </Badge>
                     </div>
 
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">
                       {!report.processed ? (
                         <div className="text-xs text-muted-foreground">
                           <p>⏳ AI is analyzing your report...</p>
-                          <p className="mt-1">This usually takes 30-60 seconds. If stuck, check backend logs.</p>
+                          <p className="mt-1 hidden sm:block">This usually takes 30-60 seconds. If stuck, check backend logs.</p>
                         </div>
                       ) : (
                         <>
-                          <span>{report.measurements_count} measurements</span>
-                          {report.abnormal_indicators_count > 0 && (
+                          <span>{report.measurements_count || 0} measurements</span>
+                          {(report.abnormal_indicators_count || 0) > 0 && (
                             <span className="flex items-center gap-1 text-destructive">
-                              <AlertCircle className="w-4 h-4" />
+                              <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4" />
                               {report.abnormal_indicators_count} alerts
                             </span>
                           )}
                           {report.extraction_confidence && (
-                            <span>
+                            <span className="hidden sm:inline">
                               {Math.round(report.extraction_confidence * 100)}% confidence
                             </span>
                           )}
@@ -197,7 +187,7 @@ export default function InBodyReports({
                     </div>
 
                     {report.ai_summary && (
-                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3 line-clamp-2">
                         {report.ai_summary}
                       </p>
                     )}
@@ -211,9 +201,10 @@ export default function InBodyReports({
                           console.log('View report:', report.report_id);
                         }}
                         data-testid={`button-view-${report.report_id}`}
+                        className="text-xs sm:text-sm"
                       >
-                        <Eye className="w-4 h-4 mr-2" />
-                        View Details
+                        <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                        View
                       </Button>
                       <Button
                         variant="ghost"
@@ -223,9 +214,10 @@ export default function InBodyReports({
                           console.log('Download report:', report.report_id);
                         }}
                         data-testid={`button-download-${report.report_id}`}
+                        className="text-xs sm:text-sm"
                       >
-                        <Download className="w-4 h-4 mr-2" />
-                        Download
+                        <Download className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Download</span>
                       </Button>
                     </div>
                   </div>

@@ -48,32 +48,32 @@ export default function MetricsCard({
   const TrendIcon = getTrendIcon();
 
   return (
-    <Card className={`p-6 bg-gradient-to-br ${gradient} hover-elevate transition-all duration-300`} data-testid={`card-metric-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+    <Card className={`p-3 sm:p-6 bg-gradient-to-br ${gradient} hover-elevate transition-all duration-300`} data-testid={`card-metric-${title.toLowerCase().replace(/\s+/g, '-')}`}>
       <div className="flex items-start justify-between">
-        <div className="flex-1">
-          <p className="text-sm font-medium text-muted-foreground mb-1">{title}</p>
-          <div className="flex items-baseline gap-2">
-            <h3 className="text-3xl font-bold text-foreground" data-testid={`text-value-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+        <div className="flex-1 min-w-0">
+          <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-0.5 sm:mb-1 truncate">{title}</p>
+          <div className="flex items-baseline gap-1 sm:gap-2">
+            <h3 className="text-xl sm:text-3xl font-bold text-foreground" data-testid={`text-value-${title.toLowerCase().replace(/\s+/g, '-')}`}>
               {value}
             </h3>
-            {unit && <span className="text-lg font-medium text-muted-foreground">{unit}</span>}
+            {unit && <span className="text-sm sm:text-lg font-medium text-muted-foreground">{unit}</span>}
           </div>
           {(trendValue || subtitle) && (
-            <div className="mt-2 flex items-center gap-2">
+            <div className="mt-1 sm:mt-2 flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-2">
               {trend && trendValue && (
                 <div className={`flex items-center gap-1 ${getTrendColor()}`} data-testid={`trend-${title.toLowerCase().replace(/\s+/g, '-')}`}>
-                  <TrendIcon className="w-4 h-4" />
-                  <span className="text-sm font-medium">{trendValue}</span>
+                  <TrendIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="text-xs sm:text-sm font-medium">{trendValue}</span>
                 </div>
               )}
               {subtitle && (
-                <span className="text-sm text-muted-foreground">{subtitle}</span>
+                <span className="text-xs sm:text-sm text-muted-foreground truncate">{subtitle}</span>
               )}
             </div>
           )}
         </div>
-        <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-chart-2/20">
-          <Icon className="w-6 h-6 text-primary" />
+        <div className="flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-primary/20 to-chart-2/20 flex-shrink-0 ml-2">
+          <Icon className="w-4 h-4 sm:w-6 sm:h-6 text-primary" />
         </div>
       </div>
     </Card>

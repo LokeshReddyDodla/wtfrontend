@@ -72,7 +72,7 @@ export default function Header({
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={onSettingsClick} data-testid="button-settings">
                   <TrendingDown className="w-4 h-4 mr-2" />
-                  Clear Enrollment ID
+                  Sign Out
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

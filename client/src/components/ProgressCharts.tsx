@@ -99,38 +99,42 @@ export default function ProgressCharts({ data, onRangeChange }: ProgressChartsPr
     <div className="space-y-6">
       {/* Comparison Summary Card - Only show if multiple data points exist */}
       {hasMultipleDataPoints && (latestData && previousData) && (
-        <Card className="p-6 bg-gradient-to-br from-primary/5 to-chart-2/5 border-primary/20">
+        <Card className="p-4 sm:p-6 bg-gradient-to-br from-primary/5 to-chart-2/5 border-primary/20">
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
-                <h3 className="text-lg font-semibold text-foreground">Latest Report Comparison</h3>
-                <p className="text-sm text-muted-foreground mt-1">
+                <h3 className="text-base sm:text-lg font-semibold text-foreground">Latest Report Comparison</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                   Changes since your previous report
                 </p>
               </div>
-              <div className="text-right">
-                <p className="text-xs text-muted-foreground">Previous</p>
-                <p className="text-sm font-medium text-foreground">
-                  {format(new Date(previousData.date), 'MMM dd, yyyy')}
-                </p>
-                <ArrowRight className="w-4 h-4 mx-auto my-1 text-muted-foreground" />
-                <p className="text-xs text-muted-foreground">Latest</p>
-                <p className="text-sm font-medium text-foreground">
-                  {format(new Date(latestData.date), 'MMM dd, yyyy')}
-                </p>
+              <div className="text-left sm:text-right flex sm:block items-center gap-3">
+                <div>
+                  <p className="text-xs text-muted-foreground">Previous</p>
+                  <p className="text-xs sm:text-sm font-medium text-foreground">
+                    {format(new Date(previousData.date), 'MMM dd, yyyy')}
+                  </p>
+                </div>
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <div>
+                  <p className="text-xs text-muted-foreground">Latest</p>
+                  <p className="text-xs sm:text-sm font-medium text-foreground">
+                    {format(new Date(latestData.date), 'MMM dd, yyyy')}
+                  </p>
+                </div>
               </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-3 sm:gap-4">
               {/* Weight Comparison */}
-              <div className="flex items-center justify-between p-4 bg-background/50 rounded-lg border border-border/50">
+              <div className="flex items-center justify-between p-3 sm:p-4 bg-background/50 rounded-lg border border-border/50">
                 <div>
                   <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide mb-1">Weight</p>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-foreground">
+                  <div className="flex items-baseline gap-1 sm:gap-2">
+                    <span className="text-xl sm:text-2xl font-bold text-foreground">
                       {latestData.weight?.toFixed(1) || '--'}
                     </span>
-                    <span className="text-sm text-muted-foreground">kg</span>
+                    <span className="text-xs sm:text-sm text-muted-foreground">kg</span>
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
                     from {previousData.weight?.toFixed(1) || '--'} kg
@@ -140,11 +144,11 @@ export default function ProgressCharts({ data, onRangeChange }: ProgressChartsPr
               </div>
 
               {/* BMI Comparison */}
-              <div className="flex items-center justify-between p-4 bg-background/50 rounded-lg border border-border/50">
+              <div className="flex items-center justify-between p-3 sm:p-4 bg-background/50 rounded-lg border border-border/50">
                 <div>
                   <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide mb-1">BMI</p>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-foreground">
+                  <div className="flex items-baseline gap-1 sm:gap-2">
+                    <span className="text-xl sm:text-2xl font-bold text-foreground">
                       {latestData.bmi?.toFixed(1) || '--'}
                     </span>
                   </div>
@@ -156,14 +160,14 @@ export default function ProgressCharts({ data, onRangeChange }: ProgressChartsPr
               </div>
 
               {/* Body Fat Comparison */}
-              <div className="flex items-center justify-between p-4 bg-background/50 rounded-lg border border-border/50">
+              <div className="flex items-center justify-between p-3 sm:p-4 bg-background/50 rounded-lg border border-border/50">
                 <div>
                   <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide mb-1">Body Fat</p>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-foreground">
+                  <div className="flex items-baseline gap-1 sm:gap-2">
+                    <span className="text-xl sm:text-2xl font-bold text-foreground">
                       {latestData.bodyFat?.toFixed(1) || '--'}
                     </span>
-                    <span className="text-sm text-muted-foreground">%</span>
+                    <span className="text-xs sm:text-sm text-muted-foreground">%</span>
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
                     from {previousData.bodyFat?.toFixed(1) || '--'}%
@@ -176,13 +180,13 @@ export default function ProgressCharts({ data, onRangeChange }: ProgressChartsPr
         </Card>
       )}
 
-      <Card className="p-6" data-testid="card-weight-chart">
-        <div className="flex items-center justify-between mb-6">
+      <Card className="p-4 sm:p-6" data-testid="card-weight-chart">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 sm:mb-6">
           <div>
-            <h3 className="text-lg font-semibold text-foreground">Weight Progress</h3>
-            <p className="text-sm text-muted-foreground mt-1">Track your weight over time</p>
+            <h3 className="text-base sm:text-lg font-semibold text-foreground">Weight Progress</h3>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1">Track your weight over time</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-1 sm:gap-2">
             {timeRanges.map((range) => (
               <Button
                 key={range.value}
@@ -190,13 +194,14 @@ export default function ProgressCharts({ data, onRangeChange }: ProgressChartsPr
                 size="sm"
                 onClick={() => handleRangeChange(range.value)}
                 data-testid={`button-range-${range.value}`}
+                className="text-xs px-2 sm:px-3"
               >
                 {range.label}
               </Button>
             ))}
           </div>
         </div>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={250}>
           <AreaChart data={data} margin={{ top: 10, right: 30, left: 10, bottom: 0 }}>
             <defs>
               <linearGradient id="colorWeight" x1="0" y1="0" x2="0" y2="1">
@@ -265,11 +270,11 @@ export default function ProgressCharts({ data, onRangeChange }: ProgressChartsPr
         </ResponsiveContainer>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="p-6" data-testid="card-bmi-chart">
-          <h3 className="text-lg font-semibold text-foreground mb-1">BMI Trend</h3>
-          <p className="text-sm text-muted-foreground mb-6">Body Mass Index tracking</p>
-          <ResponsiveContainer width="100%" height={250}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <Card className="p-4 sm:p-6" data-testid="card-bmi-chart">
+          <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">BMI Trend</h3>
+          <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">Body Mass Index tracking</p>
+          <ResponsiveContainer width="100%" height={200} className="sm:h-[250px]">
             <LineChart data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.2} />
               <XAxis
@@ -329,10 +334,10 @@ export default function ProgressCharts({ data, onRangeChange }: ProgressChartsPr
           </ResponsiveContainer>
         </Card>
 
-        <Card className="p-6" data-testid="card-bodyfat-chart">
-          <h3 className="text-lg font-semibold text-foreground mb-1">Body Fat %</h3>
-          <p className="text-sm text-muted-foreground mb-6">Body composition analysis</p>
-          <ResponsiveContainer width="100%" height={250}>
+        <Card className="p-4 sm:p-6" data-testid="card-bodyfat-chart">
+          <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">Body Fat %</h3>
+          <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">Body composition analysis</p>
+          <ResponsiveContainer width="100%" height={200} className="sm:h-[250px]">
             <LineChart data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.2} />
               <XAxis

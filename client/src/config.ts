@@ -7,11 +7,11 @@
 
 /**
  * Get the API base URL based on the current environment
- * Always uses localhost:8000 as the backend server
+ * Uses https://api.aihealth.clinic as the backend server
  */
 function getAPIBaseURL(): string {
-  // Always connect to localhost:8000
-  return 'http://localhost:8000';
+  // Connect to production API
+  return 'https://api.aihealth.clinic';
 }
 
 export const config = {

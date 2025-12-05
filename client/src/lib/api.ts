@@ -137,7 +137,7 @@ export async function submitFitnessScreen(payload: FitnessScreenCreate): Promise
 }
 
 export async function submitWillingnessCommitment(payload: WillingnessCommitmentCreate): Promise<WillingnessCommitmentRecord> {
-  return fetchAPI<WillingnessCommitmentRecord>('/intake/willingness', {
+  return fetchAPI<WillingnessCommitmentRecord>('/intake/willingness-commitment', {
     method: 'POST',
     body: JSON.stringify(payload),
   });

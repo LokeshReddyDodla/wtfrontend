@@ -7,15 +7,10 @@
 
 /**
  * Get the API base URL based on the current environment
- * Automatically detects production vs development
+ * Always uses localhost:8000 as the backend server
  */
 function getAPIBaseURL(): string {
-  // In production, use the production API URL
-  if (import.meta.env.PROD) {
-    return 'https://api.aihealth.clinic';
-  }
-  
-  // In development, use localhost
+  // Always connect to localhost:8000
   return 'http://localhost:8000';
 }
 

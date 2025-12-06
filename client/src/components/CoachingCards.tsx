@@ -139,33 +139,12 @@ export default function CoachingCards({
                     </div>
                     <div>
                       <CardTitle className="text-sm sm:text-base">{card.title}</CardTitle>
-                      <div className="flex flex-wrap items-center gap-1 sm:gap-2 mt-1">
-                        <Badge variant="outline" className="text-xs capitalize">
-                          {card.card_type}
-                        </Badge>
-                        <Badge 
-                          variant="outline" 
-                          className={`text-xs hidden sm:inline-flex ${confidenceColors(card.confidence)}`}
-                        >
-                          {Math.round(card.confidence * 100)}% confidence
-                        </Badge>
-                      </div>
                     </div>
                   </div>
                 </div>
               </CardHeader>
               <CardContent className="p-3 sm:p-6 pt-0">
                 <p className="text-xs sm:text-sm text-foreground/80 mb-3 sm:mb-4">{card.body}</p>
-                
-                {card.context_tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mb-3 sm:mb-4">
-                    {card.context_tags.map((tag, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
 
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-muted-foreground">
@@ -191,14 +170,6 @@ export default function CoachingCards({
                     </Button>
                   </div>
                 </div>
-
-                {card.sources.length > 0 && (
-                  <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-border/50">
-                    <p className="text-xs text-muted-foreground truncate">
-                      Sources: {card.sources.join(', ')}
-                    </p>
-                  </div>
-                )}
               </CardContent>
             </Card>
           );

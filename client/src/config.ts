@@ -11,7 +11,7 @@
  */
 function getAPIBaseURL(): string {
   // Connect to production API
-  return 'https://api.aihealth.clinic';
+  return 'http://localhost:8000';
 }
 
 export const config = {
